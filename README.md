@@ -1,5 +1,10 @@
 原作者地址：https://github.com/leonHua/LFilePicker
 在基础上修改可以选择文件夹
+添加选择类型方法
+.withChooseType(Constant.CHOOSE_DIR)//选择文件夹 Constant.CHOOSE_DIR
+不设置默认是选择文件 Constant.CHOOSE_FILE
+
+
 
 ----------
 ### [中文文档](README_CH.md)
