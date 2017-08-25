@@ -1,3 +1,6 @@
+原作者地址：https://github.com/leonHua/LFilePicker
+在基础上修改可以选择文件夹
+
 ----------
 ### [中文文档](README_CH.md)
 This is a lightweight file selector, it can select files by retrieve phone directory. At the same time contains：
