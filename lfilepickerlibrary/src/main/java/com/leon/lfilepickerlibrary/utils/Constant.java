@@ -15,4 +15,8 @@ public class Constant {
     public static final int ICON_STYLE_GREEN = 2;
 
     public static String RESULT_INFO = "paths";
+
+    //选择类型：文件/文件夹
+    public static final int CHOOSE_DIR = 0;
+    public static final int CHOOSE_FILE = 0;
 }

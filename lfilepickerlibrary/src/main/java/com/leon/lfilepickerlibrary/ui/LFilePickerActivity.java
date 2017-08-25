@@ -61,7 +61,7 @@ public class LFilePickerActivity extends AppCompatActivity {
         mTvPath.setText(mPath);
         mFilter = new LFileFilter(mParamEntity.getFileTypes());
         mListFiles = getFileList(mPath);
-        mPathAdapter = new PathAdapter(mListFiles, this, mFilter, mParamEntity.isMutilyMode());
+        mPathAdapter = new PathAdapter(mListFiles, this, mFilter, mParamEntity.isMutilyMode(),mParamEntity.getChooseType());
         mRecylerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mPathAdapter.setmIconStyle(mParamEntity.getIconStyle());
         mRecylerView.setAdapter(mPathAdapter);
@@ -140,18 +140,19 @@ public class LFilePickerActivity extends AppCompatActivity {
                         //如果当前是目录，则进入继续查看目录
                         chekInDirectory(position);
                     } else {
-                        //如果已经选择则取消，否则添加进来
-                        if (mListNumbers.contains(mListFiles.get(position).getAbsolutePath())) {
-                            mListNumbers.remove(mListFiles.get(position).getAbsolutePath());
-                        } else {
-                            mListNumbers.add(mListFiles.get(position).getAbsolutePath());
+                        if(mParamEntity.getChooseType() == Constant.CHOOSE_FILE){
+                            //如果已经选择则取消，否则添加进来
+                            if (mListNumbers.contains(mListFiles.get(position).getAbsolutePath())) {
+                                mListNumbers.remove(mListFiles.get(position).getAbsolutePath());
+                            } else {
+                                mListNumbers.add(mListFiles.get(position).getAbsolutePath());
+                            }
+                            if (mParamEntity.getAddText() != null) {
+                                mBtnAddBook.setText(mParamEntity.getAddText() + "( " + mListNumbers.size() + " )");
+                            } else {
+                                mBtnAddBook.setText(getString(R.string.Selected) + "( " + mListNumbers.size() + " )");
+                            }
                         }
-                        if (mParamEntity.getAddText() != null) {
-                            mBtnAddBook.setText(mParamEntity.getAddText() + "( " + mListNumbers.size() + " )");
-                        } else {
-                            mBtnAddBook.setText(getString(R.string.Selected) + "( " + mListNumbers.size() + " )");
-                        }
-
                     }
                 } else {
                     //单选模式直接返回
@@ -159,8 +160,10 @@ public class LFilePickerActivity extends AppCompatActivity {
                         chekInDirectory(position);
                         return;
                     }
-                    mListNumbers.add(mListFiles.get(position).getAbsolutePath());
-                    chooseDone();
+                    if(mParamEntity.getChooseType() == Constant.CHOOSE_FILE){
+                        mListNumbers.add(mListFiles.get(position).getAbsolutePath());
+                        chooseDone();
+                    }
                 }
 
             }
@@ -169,6 +172,12 @@ public class LFilePickerActivity extends AppCompatActivity {
         mBtnAddBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mParamEntity.getChooseType() == Constant.CHOOSE_DIR){
+                    mListNumbers.add(mPath);
+                    Toast.makeText(LFilePickerActivity.this,mPath,Toast.LENGTH_SHORT).show();
+                    //返回
+                    chooseDone();
+                }
                 if (mListNumbers.size() < 1) {
                     String info = mParamEntity.getNotFoundFiles();
                     if (TextUtils.isEmpty(info)) {
@@ -220,6 +229,7 @@ public class LFilePickerActivity extends AppCompatActivity {
     private List<File> getFileList(String path) {
         File file = new File(path);
         List<File> list = FileUtils.getFileListByDirPath(path, mFilter);
+
         return list;
     }
 

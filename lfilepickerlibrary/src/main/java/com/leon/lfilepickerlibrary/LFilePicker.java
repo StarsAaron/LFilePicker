@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.leon.lfilepickerlibrary.model.ParamEntity;
 import com.leon.lfilepickerlibrary.ui.LFilePickerActivity;
+import com.leon.lfilepickerlibrary.utils.Constant;
 
 /**
  * 作者：Leon
@@ -27,6 +28,7 @@ public class LFilePicker {
     private int mIconStyle;
     private String[] mFileTypes;
     private String mNotFoundFiles;
+    private int chooseType = Constant.CHOOSE_FILE;//默认选择类型为文件
 
     /**
      * 绑定Activity
@@ -61,6 +63,16 @@ public class LFilePicker {
         return this;
     }
 
+    /**
+     * 选择类型：文件/文件夹
+     * Constant.CHOOSE_DIR Constant.CHOOSE_FILE
+     * @param chooseType
+     * @return
+     */
+    public LFilePicker withChooseType(int chooseType){
+        this.chooseType = chooseType;
+        return this;
+    }
 
     /**
      * 设置主标题
@@ -209,6 +221,7 @@ public class LFilePicker {
         paramEntity.setIconStyle(mIconStyle);
         paramEntity.setFileTypes(mFileTypes);
         paramEntity.setNotFoundFiles(mNotFoundFiles);
+        paramEntity.setChooseType(chooseType);
         Bundle bundle = new Bundle();
         bundle.putSerializable("param", paramEntity);
         return bundle;

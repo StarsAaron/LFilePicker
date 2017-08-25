@@ -16,6 +16,7 @@ public class ParamEntity implements Serializable {
     private int iconStyle;
     private String[] fileTypes;
     private String notFoundFiles;
+    private int chooseType;
 
     public String getTitle() {
         return title;
@@ -87,5 +88,13 @@ public class ParamEntity implements Serializable {
 
     public void setNotFoundFiles(String notFoundFiles) {
         this.notFoundFiles = notFoundFiles;
+    }
+
+    public int getChooseType() {
+        return chooseType;
+    }
+
+    public void setChooseType(int chooseType) {
+        this.chooseType = chooseType;
     }
 }

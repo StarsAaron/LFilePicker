@@ -39,12 +39,14 @@ public class PathAdapter extends RecyclerView.Adapter<PathAdapter.PathViewHolder
     private boolean[] mCheckedFlags;
     private boolean mMutilyMode;
     private int mIconStyle;
+    private int mChooseType;
 
-    public PathAdapter(List<File> mListData, Context mContext, FileFilter mFileFilter, boolean mMutilyMode) {
+    public PathAdapter(List<File> mListData, Context mContext, FileFilter mFileFilter, boolean mMutilyMode,int mChooseType) {
         this.mListData = mListData;
         this.mContext = mContext;
         this.mFileFilter = mFileFilter;
         this.mMutilyMode = mMutilyMode;
+        this.mChooseType = mChooseType;
         mCheckedFlags = new boolean[mListData.size()];
     }
 
@@ -67,7 +69,12 @@ public class PathAdapter extends RecyclerView.Adapter<PathAdapter.PathViewHolder
             updateFileIconStyle(holder.ivType);
             holder.tvName.setText(file.getName());
             holder.tvDetail.setText(mContext.getString(R.string.FileSize) +" "+ FileUtils.getReadableFileSize(file.length()));
-            holder.cbChoose.setVisibility(View.VISIBLE);
+            //判断是否选择文件夹
+            if(mChooseType == Constant.CHOOSE_FILE){
+                holder.cbChoose.setVisibility(View.VISIBLE);
+            }else{
+                holder.cbChoose.setVisibility(View.GONE);
+            }
         } else {
             updateFloaderIconStyle(holder.ivType);
             holder.tvName.setText(file.getName());
