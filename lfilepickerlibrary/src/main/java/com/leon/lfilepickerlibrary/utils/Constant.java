@@ -18,5 +18,5 @@ public class Constant {
 
     //选择类型：文件/文件夹
     public static final int CHOOSE_DIR = 0;
-    public static final int CHOOSE_FILE = 0;
+    public static final int CHOOSE_FILE = 1;
 }

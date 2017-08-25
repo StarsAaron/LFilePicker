@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 .withBackIcon(mBackArrawType)
                 .withNotFoundBooks("至少选择一个文件")
                 //.withFileFilter(new String[]{"txt", "png", "docx"})
-                .withChooseType(Constant.CHOOSE_FILE)
+                .withChooseType(Constant.CHOOSE_DIR)
                 .start();
     }
 
